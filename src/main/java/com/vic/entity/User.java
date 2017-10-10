@@ -22,14 +22,28 @@ public class User {
 	private int sex;
 
 	private String tel;
-	
+
 	private int status;
-	
+
 	private boolean enable;
-	
+
 	private Date createdTime;
-	
+
 	private String desc;
+
+	public User(int userId, String userName, String password, String name, int sex, String tel, int status,
+			boolean enable, Date createdTime, String desc) {
+		this.userId = userId;
+		this.userName = userName;
+		this.password = password;
+		this.name = name;
+		this.sex = sex;
+		this.tel = tel;
+		this.status = status;
+		this.enable = enable;
+		this.createdTime = createdTime;
+		this.desc = desc;
+	}
 
 	public int getUserId() {
 		return userId;
@@ -109,6 +123,13 @@ public class User {
 
 	public void setDesc(String desc) {
 		this.desc = desc;
+	}
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", userName=" + userName + ", password=" + password + ", name=" + name
+				+ ", sex=" + sex + ", tel=" + tel + ", status=" + status + ", enable=" + enable + ", createdTime="
+				+ createdTime + ", desc=" + desc + "]";
 	}
 
 }
