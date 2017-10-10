@@ -28,15 +28,25 @@ public class RedisServiceImpl implements IRedisService{
 	
 	@Override
 	public boolean set(final String key, final String value) {
-		boolean result = redisTemplate.execute(new RedisCallback<Boolean>() {
-            @Override
-            public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
-            	RedisSerializer<String> serializer = redisTemplate.getStringSerializer();
-                connection.set(serializer.serialize(key), serializer.serialize(value));
-                return true;
-            }
-	    });
-		return result;
+		
+		redisTemplate.executePipelined(new RedisCallback<Object>() {
+
+			@Override
+			public Object doInRedis(RedisConnection connection) throws DataAccessException {
+				RedisSerializer<String> serializer = redisTemplate.getStringSerializer();
+				connection.set(serializer.serialize(key), serializer.serialize(value));
+				return null;
+			}
+		});
+//		boolean result = redisTemplate.execute(new RedisCallback<Boolean>() {
+//            @Override
+//            public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
+//            	RedisSerializer<String> serializer = redisTemplate.getStringSerializer();
+//                connection.set(serializer.serialize(key), serializer.serialize(value));
+//                return true;
+//            }
+//	    });
+		return true;
 	}
 
 	public String get(final String key){
