@@ -1,5 +1,6 @@
 package com.vic.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -9,7 +10,10 @@ import java.util.Date;
  * 
  */
 
-public class User {
+public class User implements Serializable {
+
+	//DefaultSerializer requires a Serializable payload but received an object of type [com.vic.entity.User]
+	private static final long serialVersionUID = 8096359915405791915L;
 
 	private int userId;
 
@@ -30,6 +34,15 @@ public class User {
 	private Date createdTime;
 
 	private String desc;
+	
+	
+	
+
+	public User(String userName, String password, String name) {
+		this.userName = userName;
+		this.password = password;
+		this.name = name;
+	}
 
 	public User(int userId, String userName, String password, String name, int sex, String tel, int status,
 			boolean enable, Date createdTime, String desc) {

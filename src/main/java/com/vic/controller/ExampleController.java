@@ -20,6 +20,7 @@ import com.vic.service.IRedisService;
 import com.vic.service.IUserService;
 
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisClusterInfoCache;
 import redis.clients.jedis.Pipeline;
 
 @RestController
