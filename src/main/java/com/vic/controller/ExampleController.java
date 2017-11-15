@@ -59,6 +59,13 @@ public class ExampleController {
 	/***
 	 * 从这个测试可以看出Jedis 的管道pipeline 要比redisTemplate速度要快许多倍
 	 * 
+	 * <ol>
+	 * 源代码分析：
+	 * 		<li>jedis获取pipeline:Pipeline pipelined = jedis.pipelined();</li>
+	 * 		<li>jedis保存k,v :pipeline.set(k,v)-->redis.clients.jedis.Connection.sendCommand(Command, byte[]...) 
+	 * 将键和值保存到Connection.outputStream</li>
+	 * 		<li>jedis同步数据：sync()-->redis.clients.jedis.Connection.getAll(int)-->flush() 将outputStream保存到redis库</li>
+	 * </ol>
 	 * @return
 	 */
 	@SuppressWarnings("resource")
@@ -91,6 +98,9 @@ public class ExampleController {
 
 	}
 
+	/**
+	 *redisTemplate采用实物的Demo 
+	 */
 	@RequestMapping("/redis/putdata2")
 	public String putdata2() {
 		SessionCallback<String> sessionCallback = new SessionCallback<String>() {
